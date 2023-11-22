@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import time
 from fsl.wrappers import fslmaths, fslstats, bet, fslroi, eddy, dtifit
 from preprocessing_functions.denoising import dwi_denoise
 from preprocessing_functions.distorsions_correction import synb0_correct
@@ -9,7 +10,7 @@ from create_FOD import create_FOD
 from Cingulum_Bundle_tracts.generate_tracts import subgenual_tract, retrosplenial_tract, parahippocampal_tract
 from ROIs_and_Masks.masks_to_b0_space import register_masks_to_b0
 
-data_path = '/mnt/c/Users/ricch/OneDrive/Desktop/ADNI/patient_3/'
+data_path = '/mnt/c/Users/ricch/OneDrive/Desktop/ADNI/patient_4/'
 
 T1_weighted = 'INPUTS/t1.nii.gz'
 eddy_corrected_data = 'Corrected_diffusion_data/eddy_corrected_data.nii.gz'
@@ -29,6 +30,8 @@ os.makedirs('MASKSs_to_DWI', exist_ok = True)
 user_input = input("Please, make sure that the Docker Engine is running.").lower()
 if user_input == '':
     pass
+
+start = time.time()
 
 # Start from DWI denoising
 dwi_denoise('DTI_data.nii.gz')
@@ -86,3 +89,6 @@ parahippocampal_tract(sides)
 # Register the masks to the b0 subject space
 print('Registering the masks to the b0 subject space')
 register_masks_to_b0(eddy_B0_volume, masks)
+
+end = time.time()
+print('Time used to process: ', (end - start) / (60*60), 'hours.')
