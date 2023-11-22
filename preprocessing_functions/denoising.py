@@ -4,7 +4,7 @@ import subprocess
 
 def dwi_denoise(DWI_data):
     # Defie the denoise command
-    dwidenoise_command = f'dwidenoise {DWI_data} DTI_data_denoised.nii.gz'
+    dwidenoise_command = f'dwidenoise {DWI_data} DTI_data_denoised.nii.gz -force'
 
     # Use subprocess.Popen to run the denoise command
     process = subprocess.Popen(dwidenoise_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
