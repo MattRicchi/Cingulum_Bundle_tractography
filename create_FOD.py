@@ -6,7 +6,7 @@ def create_FOD():
 
     # Define the dwi2response and dwi2fod commands
     dwi2response_command = 'dwi2response dhollander Corrected_diffusion_data/eddy_corrected_data.nii.gz FODs/response_sfwm.txt FODs/response_gm.txt FODs/response_csf.txt -fslgrad bvecs.bvec bvals.bval -force'
-    dwi2fod_command = 'dwi2fod msmt_csd -fslgrad bvecs.bvec bvals.bval Corrected_diffusion_data/eddy_corrected_data.nii.gz FODs/response_sfwm.txt FODs/FOD_wm.nii.gz FODs/response_gm.txt FODs/FOD_gm.nii.gz FODs/response_csf.txt FODs/FOD_csf.nii.gz'
+    dwi2fod_command = 'dwi2fod msmt_csd -fslgrad bvecs.bvec bvals.bval Corrected_diffusion_data/eddy_corrected_data.nii.gz FODs/response_sfwm.txt FODs/FOD_wm.nii.gz FODs/response_gm.txt FODs/FOD_gm.nii.gz FODs/response_csf.txt FODs/FOD_csf.nii.gz -force'
 
     # Run the dwi2response command using subprocess.Popen 
     process = subprocess.Popen(dwi2response_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
