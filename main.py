@@ -10,7 +10,8 @@ from create_FOD import create_FOD
 from Cingulum_Bundle_tracts.generate_tracts import subgenual_tract, retrosplenial_tract, parahippocampal_tract
 from ROIs_and_Masks.masks_to_b0_space import register_masks_to_b0
 
-data_path = '/mnt/c/Users/ricch/OneDrive/Desktop/ADNI/patient_6/'
+data_path = '/mnt/c/Users/ricch/OneDrive/Desktop/ADNI/patient_9/'
+#data_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/AD/023_S_6661/Converted_Nii_Files/'
 
 T1_weighted = 'INPUTS/t1.nii.gz'
 eddy_corrected_data = 'Corrected_diffusion_data/eddy_corrected_data.nii.gz'
@@ -53,8 +54,8 @@ os.chdir(data_path)
 
 # Run eddy correct
 print('Starting eddy...')
-eddy('DTI_data_denoised.nii.gz', mask = 'OUTPUTS/b0_brain.nii.gz', index = 'index.txt', acqp = 'INPUTS/acqparams.txt',bvals = 'bvals.bval', 
-     bvecs = 'bvecs.bvec', topup = 'OUTPUTS/topup', out = 'Corrected_diffusion_data/eddy_corrected_data', data_is_shelled = True, verbose = True)
+eddy('DTI_data_denoised.nii.gz', mask = 'OUTPUTS/b0_brain.nii.gz', index = 'index.txt', acqp = 'INPUTS/acqparams.txt',
+     bvals = 'bvals.bval', bvecs = 'bvecs.bvec', topup = 'OUTPUTS/topup', out = 'Corrected_diffusion_data/eddy_corrected_data', data_is_shelled = True, verbose = True)
 
 # Extract the eddy corrected b=0 volume
 print('Extracting the B0_volume')
@@ -66,8 +67,7 @@ bet(eddy_B0_volume, 'Corrected_diffusion_data/B0_brain.nii.gz', mask = True)
 
 # Now run the DTI fit 
 print('eddy correct done! Starting DTI fit...')
-dtifit(eddy_corrected_data, 'DTI_results/DTIFit', 'Corrected_diffusion_data/B0_brain_mask.nii.gz', 
-       'bvecs.bvec', 'bvals.bval', verbose = True)
+dtifit(eddy_corrected_data, 'DTI_results/DTIFit', 'Corrected_diffusion_data/B0_brain_mask.nii.gz', 'bvecs.bvec', 'bvals.bval', verbose = True)
 
 # Now register the ROIs to the b0 subject space
 print('Starting to register the ROIs to the subject diffusion space.')
