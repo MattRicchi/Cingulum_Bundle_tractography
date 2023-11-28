@@ -10,8 +10,8 @@ from create_FOD import create_FOD
 from Cingulum_Bundle_tracts.generate_tracts import subgenual_tract, retrosplenial_tract, parahippocampal_tract
 from ROIs_and_Masks.masks_to_b0_space import register_masks_to_b0
 
-data_path = '/mnt/c/Users/ricch/OneDrive/Desktop/ADNI/patient_9/'
-#data_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/AD/023_S_6661/Converted_Nii_Files/'
+data_path = '/mnt/c/Users/ricch/OneDrive/Desktop/ADNI/control_2/'
+# data_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/AD/067_S_7033/Converted_Nii_Files_NO_ROIS/'
 
 T1_weighted = 'INPUTS/t1.nii.gz'
 eddy_corrected_data = 'Corrected_diffusion_data/eddy_corrected_data.nii.gz'
