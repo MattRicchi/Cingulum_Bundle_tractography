@@ -8,10 +8,10 @@ from preprocessing_functions.distorsions_correction import synb0_correct
 from ROIs_and_Masks.Register_ROIs_to_diffusion_space import register_ROIs_to_b0
 from create_FOD import create_FOD
 from Cingulum_Bundle_tracts.generate_tracts import subgenual_tract, retrosplenial_tract, parahippocampal_tract
-from ROIs_and_Masks.masks_to_b0_space import register_masks_to_b0
+# from ROIs_and_Masks.masks_to_b0_space import register_masks_to_b0
 
-data_path = '/mnt/c/Users/ricch/OneDrive/Desktop/ADNI/control_2/'
-# data_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/AD/067_S_7033/Converted_Nii_Files_NO_ROIS/'
+data_path = '/mnt/c/Users/ricch/OneDrive/Desktop/ADNI/control_1/'
+# data_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/AD/AD_12/Converted_Nii_Files/'
 
 T1_weighted = 'INPUTS/t1.nii.gz'
 eddy_corrected_data = 'Corrected_diffusion_data/eddy_corrected_data.nii.gz'
