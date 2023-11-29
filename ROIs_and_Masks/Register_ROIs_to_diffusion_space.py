@@ -23,7 +23,7 @@ def register_ROIs_to_b0(eddy_B0_volume, T1_weighted, ROIs):
     
       # Invert the transformation to get the warp from the MNI to the T1 space
       print('Inverting transformation to obtain MNI to T1 warp')
-      invwarp('T1_weighted/T1toMNI_warp.nii.gz', eddy_B0_volume, 'T1_weighted/MNItoT1_warp.nii.gz')
+      invwarp('T1_weighted/T1toMNI_warp.nii.gz', T1_weighted, 'T1_weighted/MNItoT1_warp.nii.gz', verbose = True)
     
       # Register the ROIs to the diffusion space of the subject
       print('Starting to register the ROIs to subject space...')
@@ -31,7 +31,7 @@ def register_ROIs_to_b0(eddy_B0_volume, T1_weighted, ROIs):
       for roi in ROIs:
             print(f'Registering {roi}')
             ROI = os.path.join(ROIs_path, f'{roi}.nii.gz')
-            applywarp(ROI, ref = 'T1_weighted/T1_2_b0.nii.gz', out = f'ROIs_to_DWI/{roi}_to_DWI.nii.gz', 
-                      warp = 'T1_weighted/MNItoT1_warp.nii.gz', postmat = 'T1_weighted/T1_2_b0.mat', interp = 'nn')
+            applywarp(ROI, ref = 'T1_weighted/T1_2_b0.nii.gz', out = f'ROIs_to_DWI/{roi}_to_DWI.nii.gz', warp = 'T1_weighted/MNItoT1_warp.nii.gz', 
+                      postmat = 'T1_weighted/T1_2_b0.mat', interp = 'nn', verbose = True)
       
       print('All done! ROIs registered to B0 space.')
