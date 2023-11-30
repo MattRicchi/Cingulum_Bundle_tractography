@@ -5,7 +5,7 @@ import time
 
 from create_directory import create_new_directory, DCM2Nii_Directory
 
-folder_to_convert = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Hacer anónimo sylvios para claudia 1'
+folder_to_convert = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/control/Control_4'
     
 os.chdir(folder_to_convert)
 
