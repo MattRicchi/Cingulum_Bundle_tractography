@@ -3,13 +3,13 @@
 import os
 from fsl.wrappers import applywarp
 
-def register_masks_to_b0(eddy_B0_volume, masks, sides):
+def register_masks_to_b0(eddy_B0_volume, tracts, sides):
     masks_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/Masks_MNI/'
 
     # Register the masks to subject's diffusion space
     print('Starting to register the ROIs to subject space...')
 
-    for mask in masks:
+    for mask in tracts:
         for side in sides:
             print(f'Registering mask {mask}_{side}')
             MASK = os.path.join(masks_path, f'MASK_CB_{mask}_{side}.nii.gz')
