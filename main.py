@@ -10,7 +10,7 @@ from create_FOD import create_FOD
 from Cingulum_Bundle_tracts.generate_tracts import subgenual_tract, retrosplenial_tract, parahippocampal_tract
 # from ROIs_and_Masks.masks_to_b0_space import register_masks_to_b0
 
-data_path = '/mnt/c/Users/ricch/OneDrive/Desktop/ADNI/cn_2/'
+data_path = '/mnt/c/Users/ricch/OneDrive/Desktop/ADNI/cn_11/'
 # data_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/AD/AD_12/Converted_Nii_Files/'
 
 T1_weighted = 'INPUTS/t1.nii.gz'
