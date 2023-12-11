@@ -5,7 +5,7 @@ def threshold_tracts(tracts, sides):
     for tract in tracts:
         for side in sides:
             # Define the tckedit command to cut the tracts basing on the thresholded masks
-            tckedit_command = f'tckedit {tract}_{side}_tract.tck {tract}_{side}_tract_cropped.tck -mask {tract}_{side}_tract_thr.nii.gz -force'
+            tckedit_command = f'tckedit {tract}_{side}_tract.tck Cropped_tracts/{tract}_{side}_tract_cropped.tck -mask Thresholded_masks/{tract}_{side}_tract_thr.nii.gz -force'
 
             # Now run tckedit
             print('Run tckedit')
@@ -23,7 +23,7 @@ def threshold_tracts(tracts, sides):
                 print("tckedit command completed successfully, starting tckmap...")
     
                 # poi tckmap per avere i tratti in .nii.gz
-                tckmap_command = f'tckmap -template DTI_results/DTIFit_FA.nii.gz {tract}_{side}_tract_cropped.tck -force {tract}_{side}_tract_cropped.nii.gz'
+                tckmap_command = f'tckmap -template DTI_results/DTIFit_FA.nii.gz Cropped_tracts/{tract}_{side}_tract_cropped.tck -force Cropped_tracts/{tract}_{side}_tract_cropped.nii.gz'
 
                 process_fod = subprocess.Popen(tckmap_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
 
