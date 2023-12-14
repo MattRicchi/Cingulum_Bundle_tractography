@@ -4,7 +4,7 @@ from fsl.wrappers import fslstats, fslmaths
 import os
 from Cingulum_Bundle_tracts.edit_tracts import threshold_tracts
 
-data_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/CN/CN_1/Converted_Nii_Files/'
+data_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/CN/CN_3/Converted_Nii_Files/'
 os.chdir(data_path)
 os.makedirs('Thresholded_masks', exist_ok = True)
 os.makedirs('Cropped_tracts', exist_ok = True)
