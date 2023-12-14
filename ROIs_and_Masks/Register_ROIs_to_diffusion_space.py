@@ -8,7 +8,7 @@ def register_ROIs_to_b0(eddy_B0_volume, T1_weighted, ROIs):
       ROIs_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/ROIs/'
       MNI_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/Brain_references/'
     
-      MNI_2mm = os.path.join(MNI_path, 'MNI152_T1_2mm.nii.gz')
+      MNI_2mm = os.path.join(MNI_path, 'MNI152_T1_2mm_brain.nii.gz')
       config_file = os.path.join(MNI_path, 'T1_2_MNI152_2mm.cnf')
 
       # Register the T1 to the b=0 volume
@@ -17,7 +17,7 @@ def register_ROIs_to_b0(eddy_B0_volume, T1_weighted, ROIs):
     
       # Register the T1 volume to the MNI space
       print('Registering the T1 to MNI')
-      flirt(T1_weighted, MNI_2mm, dof = 12, out = 'T1_weighted/T1toMNI_flirt.nii.gz', omat = 'T1_weighted/T1toMNI_flirt.mat')
+      flirt('OUTPUTS/T1_mask.nii.gz', MNI_2mm, dof = 12, out = 'T1_weighted/T1toMNI_flirt.nii.gz', omat = 'T1_weighted/T1toMNI_flirt.mat')
       fnirt(T1_weighted, config = config_file, aff = 'T1_weighted/T1toMNI_flirt.mat', 
             iout = 'T1_weighted/T1toMNI_fnirt.nii.gz', fout = 'T1_weighted/T1toMNI_warp.nii.gz')
     
