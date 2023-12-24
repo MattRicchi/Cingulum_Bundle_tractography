@@ -5,7 +5,7 @@ def threshold_tracts(tracts, sides):
     for tract in tracts:
         for side in sides:
             # Define the tckedit command to cut the tracts basing on the thresholded masks
-            tckedit_command = f'tckedit {tract}_{side}_tract.tck Cropped_tracts/{tract}_{side}_tract_cropped.tck -mask Thresholded_masks/{tract}_{side}_tract_thr.nii.gz -force'
+            tckedit_command = f'tckedit {tract}_{side}_tract.tck Cropped_tracts/{tract}_{side}_tract_cropped.tck -mask MASKSs_to_DWI/MASK_{tract}_{side}_to_DWI.nii.gz -force'
 
             # Now run tckedit
             print('Run tckedit')
