@@ -1,32 +1,25 @@
 #!/usr/bin/env python3
 
-from fsl.wrappers import fslstats, fslmaths
 import os
 from Cingulum_Bundle_tracts.edit_tracts import threshold_tracts
+from ROIs_and_Masks.masks_to_b0_space import register_masks_to_b0
 
-data_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/CN/CN_3/Converted_Nii_Files/'
-os.chdir(data_path)
-os.makedirs('Thresholded_masks', exist_ok = True)
-os.makedirs('Cropped_tracts', exist_ok = True)
+for control in range (1, 19):
+    print(f'Working in Control {control}')
+    data_path = f'/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MCI/MCI_{control}/Converted_Nii_Files/'
+    MNI_masks_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/Masks_MNI/'
+    os.chdir(data_path)
+    os.makedirs('MASKSs_to_DWI', exist_ok = True)
+    os.makedirs('Cropped_tracts', exist_ok = True)
 
-tracts = ['Subgenual', 'Retrosplenial', 'Parahippocampal']
-sides = ['L', 'R']
+    B0_volume = 'Corrected_diffusion_data/B0_volume.nii.gz'
+    tracts = ['Subgenual', 'Retrosplenial', 'Parahippocampal']
+    sides = ['L', 'R']
 
-soglia = 0.1
+    # Register the masks to the subject space
+    register_masks_to_b0(B0_volume, tracts, sides)
 
-print('Applying threshold to each tract...')
-for tract in tracts:
-    for side in sides:
-        # Extract the minimum and maximum value in the tract
-        min, max = fslstats(f'{tract}_{side}_tract.nii.gz').R.run()
+    print('Starting to cut the tracts...')
+    threshold_tracts(tracts, sides)
 
-        # Define the effective cutoff threshold
-        soglia_eff = soglia * int(max)
-
-        # Apply threshold to the tract
-        fslmaths(f'{tract}_{side}_tract.nii.gz').thr(soglia_eff).run(f'Thresholded_masks/{tract}_{side}_tract_thr.nii.gz')
-
-print('Starting to cut the tracts...')
-threshold_tracts(tracts, sides)
-
-print('All done!')
+    print('All done!')
