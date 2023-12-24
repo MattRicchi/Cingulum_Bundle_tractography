@@ -10,10 +10,10 @@ from create_FOD import create_FOD
 from Cingulum_Bundle_tracts.generate_tracts import subgenual_tract, retrosplenial_tract, parahippocampal_tract
 # from ROIs_and_Masks.masks_to_b0_space import register_masks_to_b0
 
-data_path = '/mnt/c/Users/ricch/OneDrive/Desktop/ADNI/Converted_Nii_Files_CN_4/'
+data_path = '/mnt/c/Users/ricch/OneDrive/Desktop/ADNI/Prova_Barcellona/'
 # data_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/CN/CN_15/Converted_Nii_Files/'
 
-T1_weighted = 'T1_weighted/T1.nii.gz'
+T1_weighted = 'INPUTS/t1.nii.gz'
 eddy_corrected_data = 'Corrected_diffusion_data/eddy_corrected_data.nii.gz'
 eddy_B0_volume = 'Corrected_diffusion_data/B0_volume.nii.gz'
 ROIs = ['1_L', '1_R', '2_L', '2_R', '3_L', '3_R', '4_L', '4_R', '5_L', '5_R', '6_L', '6_R', 'midsagittal']
@@ -35,10 +35,10 @@ if user_input == '':
 start = time.time()
 
 # Start from DWI denoising
-# dwi_denoise('DTI_data.nii.gz')
+dwi_denoise('DTI_data.nii.gz')
 
 # Extract b0 volume and save it into INPUTS folder
-# fslroi('DTI_data_denoised.nii.gz', 'INPUTS/b0.nii.gz', 0, 1)
+fslroi('DTI_data_denoised.nii.gz', 'INPUTS/b0.nii.gz', 0, 1)
 
 # Run the DWI distorsions correction
 synb0_correct()
@@ -85,10 +85,6 @@ retrosplenial_tract(sides)
 
 print('Generating Parahippocampal tract')
 parahippocampal_tract(sides)
-
-# Register the masks to the b0 subject space
-# print('Registering the masks to the b0 subject space')
-# register_masks_to_b0(eddy_B0_volume, tracts, sides)
 
 end = time.time()
 print('Time used to process: ', (end - start) / (60*60), 'hours.')
