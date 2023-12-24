@@ -6,7 +6,7 @@ def synb0_correct():
     print('Starting distorsion correction with synb0 docker...')
     
     # Run the Docker command for distorsions correction
-    docker_command = "docker run --rm -v $(pwd)/INPUTS/:/INPUTS/ -v $(pwd)/OUTPUTS:/OUTPUTS/ -v $(pwd)/license.txt:/extra/freesurfer/license.txt --user $(id -u):$(id -g) leonyichencai/synb0-disco:v3.0 --stripped"
+    docker_command = "docker run --rm -v $(pwd)/INPUTS/:/INPUTS/ -v $(pwd)/OUTPUTS:/OUTPUTS/ -v $(pwd)/license.txt:/extra/freesurfer/license.txt --user $(id -u):$(id -g) leonyichencai/synb0-disco:v3.0" # --stripped"
 
     # Use subprocess.Popen to run the Docker command
     process = subprocess.Popen(docker_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
