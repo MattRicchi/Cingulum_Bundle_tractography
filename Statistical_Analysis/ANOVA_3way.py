@@ -1,5 +1,4 @@
 import pandas as pd
-from scipy.stats import f_oneway
 from statsmodels.formula.api import ols
 from statsmodels.stats.anova import anova_lm
 
