@@ -31,8 +31,14 @@ print(f'Mean age (std): {np.mean(MCI_age)}({np.std(MCI_age)})')
 print('MCI statistics: ', MCI_res.statistic)
 print('MCI p-value: ', MCI_res.pvalue)
 
-########################################################################################################################################################
-########################################################################################################################################################
+# Function to extract data for a specific combination of measure, tract, and side
+def extract_data(data, measure, tract, side):
+    subset = data[(data['tract'] == tract) & (data['side'] == side)]['mean']
+    
+    # Exclude 0.0 values
+    subset = subset[subset != 0.0]
+    
+    return np.array(subset)
 
 metrics = ['fa', 'md', 'rd']
 tracts = ['subgenual', 'retrosplenial', 'parahippocampal']
@@ -45,33 +51,21 @@ sides = ['l', 'r']
 global_csv_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/AD/global_tract_metrics.csv'
 df = pd.read_csv(global_csv_path)
 
-# Separate data based on measure (FA, MD, RD)
-fa_data = df[df['measure'] == 'FA']
-md_data = df[df['measure'] == 'MD']
-rd_data = df[df['measure'] == 'RD']
-
-# Function to extract data for a specific combination of measure, tract, and side
-def extract_data(data, measure, tract, side):
-    subset = data[(data['tract'] == tract) & (data['side'] == side)]['mean']
-    return np.array(subset)
-
+# Iterate over metrics, tracts, and sides
 print('--------------------------------')
 print('---------- AD results ----------')
 print('--------------------------------')
-
-# Iterate over metrics, tracts, and sides
 for metric in metrics:
     for tract in tracts:
         for side in sides:
             # Extract data for AD patients
             data = extract_data(df[df['measure'] == metric.upper()], metric.upper(), tract.capitalize(), side.upper())
-            print(data)
+            
             # Perform the Shapiro-Wilks test
             res = stats.shapiro(data)
 
             # Print the results
             print(f'Shapiro-Wilk test for {metric.upper()} in {tract.capitalize()}_{side.upper()}: p-value={res.pvalue}')
-
 
 ######################## CN ########################
 
@@ -79,21 +73,10 @@ for metric in metrics:
 global_csv_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/CN/global_tract_metrics.csv'
 df = pd.read_csv(global_csv_path)
 
-# Separate data based on measure (FA, MD, RD)
-fa_data = df[df['measure'] == 'FA']
-md_data = df[df['measure'] == 'MD']
-rd_data = df[df['measure'] == 'RD']
-
-# Function to extract data for a specific combination of measure, tract, and side
-def extract_data(data, measure, tract, side):
-    subset = data[(data['tract'] == tract) & (data['side'] == side)]['mean']
-    return np.array(subset)
-
+# Iterate over metrics, tracts, and sides
 print('--------------------------------')
 print('---------- CN results ----------')
 print('--------------------------------')
-
-# Iterate over metrics, tracts, and sides
 for metric in metrics:
     for tract in tracts:
         for side in sides:
@@ -106,28 +89,16 @@ for metric in metrics:
             # Print the results
             print(f'Shapiro-Wilk test for {metric.upper()} in {tract.capitalize()}_{side.upper()}: p-value={res.pvalue}')
 
-
 ######################## MCI ########################
 
 # Load the global CSV file into a DataFrame
 global_csv_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MCI/global_tract_metrics.csv'
 df = pd.read_csv(global_csv_path)
 
-# Separate data based on measure (FA, MD, RD)
-fa_data = df[df['measure'] == 'FA']
-md_data = df[df['measure'] == 'MD']
-rd_data = df[df['measure'] == 'RD']
-
-# Function to extract data for a specific combination of measure, tract, and side
-def extract_data(data, measure, tract, side):
-    subset = data[(data['tract'] == tract) & (data['side'] == side)]['mean']
-    return np.array(subset)
-
+# Iterate over metrics, tracts, and sides
 print('--------------------------------')
 print('---------- MCI results ----------')
 print('--------------------------------')
-
-# Iterate over metrics, tracts, and sides
 for metric in metrics:
     for tract in tracts:
         for side in sides:

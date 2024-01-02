@@ -11,46 +11,53 @@ cn_df = pd.read_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_b
 merged_df = pd.concat([ad_df, mci_df, cn_df], ignore_index=True)
 
 # Save the merged DataFrame to a new CSV file
-merged_df.to_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/merged_data.csv')
+merged_df.to_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/merged_data.csv', index=False)
+
+# Remove rows with 0 values in the 'mean' column
+merged_df = merged_df[merged_df['mean'] != 0.0]
 
 # Separate DataFrames based on 'measure' column
-fa_df = merged_df[merged_df['measure'] == 'FA'].copy()
-md_df = merged_df[merged_df['measure'] == 'MD'].copy()
-rd_df = merged_df[merged_df['measure'] == 'RD'].copy()
+fa_data = merged_df[merged_df['measure'] == 'FA'].copy()
+md_data = merged_df[merged_df['measure'] == 'MD'].copy()
+rd_data = merged_df[merged_df['measure'] == 'RD'].copy()
 
 # Save each DataFrame to a new CSV file
-fa_df.to_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/fa_data.csv', index=False)
-md_df.to_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/md_data.csv', index=False)
-rd_df.to_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/rd_data.csv', index=False)
-
-# Load the separated DataFrames
-fa_df = pd.read_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/fa_data.csv')
-md_df = pd.read_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/md_data.csv')
-rd_df = pd.read_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/rd_data.csv')
+fa_data.to_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/fa_data.csv', index=False)
+md_data.to_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/md_data.csv', index=False)
+rd_data.to_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/rd_data.csv', index=False)
 
 # Perform three-way ANOVA for FA
-formula = 'mean ~ C(tract) * C(side) * C(group)'
-model = ols(formula, data=fa_df).fit()
-anova_table = anova_lm(model, typ=2)
+fa_formula = 'mean ~ C(tract) * C(side) * C(group)'
+fa_model = ols(fa_formula, data=fa_data).fit()
+fa_anova_table = anova_lm(fa_model, typ=2)
 
 # Print the ANOVA table
 print('-------- FA results --------')
-print(anova_table)
+print(fa_anova_table)
+
+# Save the ANOVA results to an Excel file
+fa_anova_table.to_excel('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/fa_anova_results.xlsx')
 
 # Perform three-way ANOVA for MD
-formula = 'mean ~ C(tract) * C(side) * C(group)'
-model = ols(formula, data=md_df).fit()
-anova_table = anova_lm(model, typ=2)
+md_formula = 'mean ~ C(tract) * C(side) * C(group)'
+md_model = ols(md_formula, data=md_data).fit()
+md_anova_table = anova_lm(md_model, typ=2)
 
 # Print the ANOVA table
 print('-------- MD results --------')
-print(anova_table)
+print(md_anova_table)
+
+# Save the ANOVA results to an Excel file
+md_anova_table.to_excel('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/md_anova_results.xlsx')
 
 # Perform three-way ANOVA for RD
-formula = 'mean ~ C(tract) * C(side) * C(group)'
-model = ols(formula, data=rd_df).fit()
-anova_table = anova_lm(model, typ=2)
+rd_formula = 'mean ~ C(tract) * C(side) * C(group)'
+rd_model = ols(rd_formula, data=rd_data).fit()
+rd_anova_table = anova_lm(rd_model, typ=2)
 
 # Print the ANOVA table
 print('-------- RD results --------')
-print(anova_table)
+print(rd_anova_table)
+
+# Save the ANOVA results to an Excel file
+rd_anova_table.to_excel('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/rd_anova_results.xlsx')
