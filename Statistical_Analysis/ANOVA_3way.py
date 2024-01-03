@@ -21,11 +21,6 @@ fa_data = merged_df[merged_df['measure'] == 'FA'].copy()
 md_data = merged_df[merged_df['measure'] == 'MD'].copy()
 rd_data = merged_df[merged_df['measure'] == 'RD'].copy()
 
-# # Save each DataFrame to a new CSV file
-# fa_data.to_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/fa_data.csv', index=False)
-# md_data.to_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/md_data.csv', index=False)
-# rd_data.to_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/rd_data.csv', index=False)
-
 # Perform three-way ANOVA for FA
 fa_formula = 'mean ~ C(tract) * C(side) * C(group)'
 fa_model = ols(fa_formula, data=fa_data).fit()
