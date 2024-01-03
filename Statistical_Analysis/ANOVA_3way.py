@@ -11,7 +11,7 @@ cn_df = pd.read_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_b
 merged_df = pd.concat([ad_df, mci_df, cn_df], ignore_index=True)
 
 # Save the merged DataFrame to a new CSV file
-merged_df.to_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/merged_data.csv', index=False)
+# merged_df.to_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/merged_data.csv', index=False)
 
 # Remove rows with 0 values in the 'mean' column
 merged_df = merged_df[merged_df['mean'] != 0.0]
