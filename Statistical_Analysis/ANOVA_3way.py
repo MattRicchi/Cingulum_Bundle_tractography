@@ -1,9 +1,6 @@
 import pandas as pd
-from itertools import combinations
-from statsmodels.stats.multitest import multipletests
 from statsmodels.formula.api import ols
 from statsmodels.stats.anova import anova_lm
-from Student_ttest_OLD import run_t_test
 
 groups = ['CN', 'AD', 'MCI']
 tracts = ['Subgenual', 'Retrosplenial', 'Parahippocampal']
@@ -41,47 +38,6 @@ print(fa_anova_table)
 # Save the ANOVA results to an Excel file
 fa_anova_table.to_excel('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/fa_anova_results.xlsx')
 
-# Create an empty DataFrame to store the results
-results_df = pd.DataFrame(columns=['Comparison', 'Measure', 'Tract_Side', 'T-statistic', 'P-value'])
-
-# Perform t-tests and populate the results DataFrame
-group_combinations = list(combinations([('CN', cn_df), ('AD', ad_df), ('MCI', mci_df)], 2))
-
-# Compare the groups
-for (group1_name, group1_df), (group2_name, group2_df) in group_combinations:
-    for tract in tracts:
-        for side in sides:
-            results_df = results_df._append(
-                run_t_test(group1_df, group2_df, 'FA', tract, side, group1_name, group2_name),
-                ignore_index = True)
-
-fa_data_sub = fa_data[fa_data['tract'] == 'Subgenual']
-fa_data_retro = fa_data[fa_data['tract'] == 'Retrosplenial']
-fa_data_para = fa_data[fa_data['tract'] == 'Parahippocampal']
-
-# Compare the tracts
-tracts_combinations = list(combinations([('Subgenual', fa_data_sub), ('Retrosplenial', fa_data_retro), ('Parahippocampal', fa_data_para)], 2))
-
-for (tract1, tract1_data), (tract2, tract2_data) in tracts_combinations:
-    for side in sides:
-        for group in groups: 
-            results_df = results_df._append(
-                run_t_test(tract1_data, tract2_data, 'FA', group, side, tract1, tract2), 
-                ignore_index = True)
-            
-# Extract p-values for FDR correction
-p_values = results_df['P-value']
-
-# Perform FDR correction
-reject, corrected_p_values, _, _ = multipletests(p_values, alpha=0.05, method='fdr_bh')
-
-# Update the results DataFrame with corrected p-values
-results_df['Corrected p-value'] = corrected_p_values
-results_df['Reject Null Hypothesis'] = reject
-
-# Save the results to an Excel file
-results_df.to_excel('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/FA_Ttest_results.xlsx', index=False)
-
 
 ########################################################
 ########################## MD ##########################
@@ -99,32 +55,6 @@ print(md_anova_table)
 # Save the ANOVA results to an Excel file
 md_anova_table.to_excel('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/md_anova_results.xlsx')
 
-# Create an empty DataFrame to store the results
-results_df = pd.DataFrame(columns=['Comparison', 'Measure', 'Tract_Side', 'T-statistic', 'P-value'])
-
-# Perform t-tests and populate the results DataFrame
-group_combinations = list(combinations([('CN', cn_df), ('AD', ad_df), ('MCI', mci_df)], 2))
-
-for (group1_name, group1_df), (group2_name, group2_df) in group_combinations:
-    for tract in tracts:
-        for side in sides:
-            results_df = results_df._append(
-                run_t_test(group1_df, group2_df, 'MD', tract, side, group1_name, group2_name),
-                ignore_index=True)
-            
-# Extract p-values for FDR correction
-p_values = results_df['P-value']
-
-# Perform FDR correction
-reject, corrected_p_values, _, _ = multipletests(p_values, alpha=0.05, method='fdr_bh')
-
-# Update the results DataFrame with corrected p-values
-results_df['Corrected p-value'] = corrected_p_values
-results_df['Reject Null Hypothesis'] = reject
-
-# Save the results to an Excel file
-results_df.to_excel('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MD_Ttest_results.xlsx', index=False)
-
 
 ########################################################
 ########################## RD ##########################
@@ -141,29 +71,3 @@ print(rd_anova_table)
 
 # Save the ANOVA results to an Excel file
 rd_anova_table.to_excel('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/rd_anova_results.xlsx')
-
-# Create an empty DataFrame to store the results
-results_df = pd.DataFrame(columns=['Comparison', 'Measure', 'Tract_Side', 'T-statistic', 'P-value'])
-
-# Perform t-tests and populate the results DataFrame
-group_combinations = list(combinations([('CN', cn_df), ('AD', ad_df), ('MCI', mci_df)], 2))
-
-for (group1_name, group1_df), (group2_name, group2_df) in group_combinations:
-    for tract in tracts:
-        for side in sides:
-            results_df = results_df._append(
-                run_t_test(group1_df, group2_df, 'RD', tract, side, group1_name, group2_name),
-                ignore_index=True)
-            
-# Extract p-values for FDR correction
-p_values = results_df['P-value']
-
-# Perform FDR correction
-reject, corrected_p_values, _, _ = multipletests(p_values, alpha=0.05, method='fdr_bh')
-
-# Update the results DataFrame with corrected p-values
-results_df['Corrected p-value'] = corrected_p_values
-results_df['Reject Null Hypothesis'] = reject
-
-# Save the results to an Excel file
-results_df.to_excel('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/RD_Ttest_results.xlsx', index=False)
