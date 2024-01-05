@@ -3,34 +3,6 @@ import pandas as pd
 import numpy as np
 from scipy import stats
 
-# First test the age distributions of AD, CN, MCI
-# Define the np arrays containing the ages of participants
-print('Shapiro-Wilk test to check for normality of age distribution')
-AD_age = np.array([76, 72, 75, 84, 84, 82, 59, 68, 86, 75])
-CN_age = np.array([74, 81, 53, 68, 78, 77, 78, 76, 83, 85, 80, 73, 73, 80, 74, 57])
-MCI_age = np.array([86, 69, 75, 73, 77, 74, 68, 79, 76, 71, 74, 68, 74, 79, 79, 79, 89, 75])
-
-# Perform the tests
-AD_res = stats.shapiro(AD_age)
-CN_res = stats.shapiro(CN_age)
-MCI_res = stats.shapiro(MCI_age)
-
-# Print the results
-print('-------- AD age --------')
-print(f'Mean age (std): {np.mean(AD_age)}({np.std(AD_age)})')
-print('AD statistics: ', AD_res.statistic)
-print('AD p-value: ', AD_res.pvalue)
-
-print('-------- CN age --------')
-print(f'Mean age (std): {np.mean(CN_age)}({np.std(CN_age)})')
-print('CN statistics: ', CN_res.statistic)
-print('CN p-value: ', CN_res.pvalue)
-
-print('-------- MCI age --------')
-print(f'Mean age (std): {np.mean(MCI_age)}({np.std(MCI_age)})')
-print('MCI statistics: ', MCI_res.statistic)
-print('MCI p-value: ', MCI_res.pvalue)
-
 # Function to extract data for a specific combination of measure, tract, and side
 def extract_data(data, measure, tract, side):
     subset = data[(data['tract'] == tract) & (data['side'] == side)]['mean']
