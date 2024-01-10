@@ -5,9 +5,9 @@ from statsmodels.stats.multitest import multipletests
 from scipy.stats import ttest_ind
 
 # Load the CSV data into DataFrames
-ad_df = pd.read_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/AD/global_tract_metrics_mean.csv')
-mci_df = pd.read_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MCI/global_tract_metrics_mean.csv')
-cn_df = pd.read_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/CN/global_tract_metrics_mean.csv')
+ad_df = pd.read_csv('C:/Users/Probook 455 G6/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/AD/global_tract_metrics_mean.csv')
+mci_df = pd.read_csv('C:/Users/Probook 455 G6/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MCI/global_tract_metrics_mean.csv')
+cn_df = pd.read_csv('C:/Users/Probook 455 G6/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/CN/global_tract_metrics_mean.csv')
 
 measures = ['FA', 'MD', 'RD']
 tracts = ['Subgenual', 'Retrosplenial', 'Parahippocampal']
@@ -47,7 +47,7 @@ for measure in measures:
     print(results_df)
 
     # Save the results to an Excel file
-    results_df.to_excel(f'/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/{measure}_Ttest_GROUPS.xlsx', index=False)
+    results_df.to_excel(f'C:/Users/Probook 455 G6/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/{measure}_Ttest_GROUPS.xlsx', index=False)
 
     # Define empty DataFrame for final results
     results_df_tracts = pd.DataFrame(columns=['Comparison', 'Measure', 'Group', 'T-statistic', 'P-value'])
@@ -77,4 +77,4 @@ for measure in measures:
     print(results_df_tracts)
 
     # Save the results to an Excel file
-    results_df_tracts.to_excel(f'/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/{measure}_Ttest_TRACTS.xlsx', index=False)
+    results_df_tracts.to_excel(f'C:/Users/Probook 455 G6/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/{measure}_Ttest_TRACTS.xlsx', index=False)
