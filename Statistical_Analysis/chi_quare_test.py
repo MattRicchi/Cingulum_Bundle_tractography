@@ -11,7 +11,7 @@ num_subjects = df.shape[0]
 
 # Create a contingency table
 contingency_table = pd.crosstab(df['Sex'], df['Category'])
-
+print(contingency_table)
 # Perform chi-square test
 chi2_test, pval, dof, expected = chi2_contingency(contingency_table)
 print('Number of subjects:', num_subjects)
