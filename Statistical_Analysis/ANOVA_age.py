@@ -65,17 +65,13 @@ print("ANOVA Results saved to MMSE_anova_results.xlsx")
 alpha = 0.05
 if p_value_mmse < alpha:
     print("The MMSE distributions are statistically significantly different. Performing Tukey post hoc test.")
-    group_combinations = combinations([('CN', CN_MMSE, CN_label), ('AD', AD_MMSE, AD_label), ('MCI', MCI_MMSE, MCI_label)], 2)
 
-    Tukey_results_df = pd.DataFrame(columns=['group1', 'group2', 'meandiff', 'p-adj', 'lower', 'upper', 'reject'])
+    all_data = np.concatenate([AD_MMSE, CN_MMSE, MCI_MMSE])
+    group_labels = np.concatenate([AD_label, CN_label, MCI_label])
 
-    for (group1_name, group1_data, group1_label), (group2_name, group2_data, group2_label) in group_combinations:
-        all_data = np.concatenate([group1_data, group2_data])
-        group_labels = np.concatenate([group1_label, group2_label])
-
-        # Perform Tukey test
-        tukey_results = pairwise_tukeyhsd(all_data, group_labels)
-        Tukey_results_df = Tukey_results_df._append(pd.DataFrame(data=tukey_results._results_table.data[1:], columns=tukey_results._results_table.data[0]))
+    # Perform Tukey test
+    tukey_results = pairwise_tukeyhsd(all_data, group_labels)
+    Tukey_results_df = pd.DataFrame(data=tukey_results._results_table.data[1:], columns=tukey_results._results_table.data[0])
 
     # Save the Tukey results to the same Excel file but in a different sheet
     with pd.ExcelWriter(mmse_anova_results_file, engine='openpyxl', mode='a') as writer:
