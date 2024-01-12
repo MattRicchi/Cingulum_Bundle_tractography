@@ -7,9 +7,13 @@ tracts = ['Subgenual', 'Retrosplenial', 'Parahippocampal']
 sides = ['L', 'R']
 
 # Load the CSV data into DataFrames
-ad_df = pd.read_csv('C:/Users/Probook 455 G6/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/AD/global_tract_metrics.csv')
-mci_df = pd.read_csv('C:/Users/Probook 455 G6/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MCI/global_tract_metrics.csv')
-cn_df = pd.read_csv('C:/Users/Probook 455 G6/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/CN/global_tract_metrics.csv')
+ad_df = pd.read_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/AD/global_tract_metrics.csv')
+mci_df = pd.read_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MCI/global_tract_metrics.csv')
+cn_df = pd.read_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/CN/global_tract_metrics.csv')
+
+ad_df['group'] = 'AD'
+mci_df['group'] = 'MCI'
+cn_df['group'] = 'CN'
 
 # Merge the data into a single DataFrame with a hierarchical index
 merged_df = pd.concat([ad_df, mci_df, cn_df], ignore_index=True)
@@ -36,7 +40,7 @@ print('-------- FA results --------')
 print(fa_anova_table)
 
 # Save the ANOVA results to an Excel file
-fa_anova_table.to_excel('C:/Users/Probook 455 G6/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/fa_anova_results.xlsx')
+fa_anova_table.to_excel('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/Statistical_analysis/ANOVA/fa_anova_results.xlsx')
 
 
 ########################################################
@@ -53,7 +57,7 @@ print('-------- MD results --------')
 print(md_anova_table)
 
 # Save the ANOVA results to an Excel file
-md_anova_table.to_excel('C:/Users/Probook 455 G6/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/md_anova_results.xlsx')
+md_anova_table.to_excel('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/Statistical_analysis/ANOVA/md_anova_results.xlsx')
 
 
 ########################################################
@@ -70,4 +74,4 @@ print('-------- RD results --------')
 print(rd_anova_table)
 
 # Save the ANOVA results to an Excel file
-rd_anova_table.to_excel('C:/Users/Probook 455 G6/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/rd_anova_results.xlsx')
+rd_anova_table.to_excel('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/Statistical_analysis/ANOVA/rd_anova_results.xlsx')
