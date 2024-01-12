@@ -3,9 +3,9 @@ import numpy as np
 from statsmodels.stats.multicomp import pairwise_tukeyhsd
 
 # Load the CSV data into DataFrames
-ad_df = pd.read_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/AD/global_tract_metrics_mean.csv')
-mci_df = pd.read_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MCI/global_tract_metrics_mean.csv')
-cn_df = pd.read_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/CN/global_tract_metrics_mean.csv')
+ad_df = pd.read_excel('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/AD/global_tract_metrics_mean.xlsx')
+mci_df = pd.read_excel('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MCI/global_tract_metrics_mean.xlsx')
+cn_df = pd.read_excel('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/CN/global_tract_metrics_mean.xlsx')
 
 merged_df = pd.concat([ad_df, mci_df, cn_df], ignore_index=True)
 merged_df = merged_df[merged_df['side'] == 'mean_LR']
@@ -15,7 +15,7 @@ groups = ['CN', 'AD', 'MCI']
 tracts = ['Subgenual', 'Retrosplenial', 'Parahippocampal']
 
 # Create an Excel writer object to save GROUPS results
-excel_writer = pd.ExcelWriter('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/Tukey_groups_results.xlsx', engine='xlsxwriter')
+excel_writer = pd.ExcelWriter('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/Statistical_analysis/Tukey_post_hoc/Tukey_groups_results.xlsx', engine='xlsxwriter')
 
 # Perform a Tukey test and p-value correction for each measurement separately
 for measure in measures:
@@ -48,7 +48,7 @@ excel_writer._save()
 
 
 # Create an Excel writer object to save TRACTS results
-excel_writer = pd.ExcelWriter('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/Tukey_tracts_results.xlsx', engine='xlsxwriter')
+excel_writer = pd.ExcelWriter('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/Statistical_analysis/Tukey_post_hoc/Tukey_tracts_results.xlsx', engine='xlsxwriter')
 
 for measure in measures:
     # Define empty DataFrame for final results
