@@ -4,9 +4,9 @@ import os
 from Cingulum_Bundle_tracts.edit_tracts import threshold_tracts
 from ROIs_and_Masks.masks_to_b0_space import register_masks_to_b0
 
-for control in range (1, 6):
-    print(f'Working in Control {control}')
-    data_path = f'/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/Control/control_{control}/Converted_Nii_Files/'
+for patient in range (1, 19):
+    print(f'Working in Patient {patient}')
+    data_path = f'/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MCI/MCI_{patient}/Converted_Nii_Files/'
     MNI_masks_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/Masks_MNI/'
     os.chdir(data_path)
     os.makedirs('MASKSs_to_DWI', exist_ok = True)
