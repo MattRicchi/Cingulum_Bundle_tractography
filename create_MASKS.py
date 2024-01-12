@@ -2,7 +2,7 @@
 
 import os
 import shutil
-from fsl.wrappers import applywarp, fslmaths, flirt
+from fsl.wrappers import applywarp, fslmaths, fslstats, flirt
 
 data_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/control/'
 masks_MNI_folder = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/Masks_MNI/'
@@ -31,19 +31,24 @@ for control in range(1, 6):
     # Now register the tracts to the MNI space and binarize them
     for tract in tracts:
         for side in sides:
+            print(f'Normalising tract {tract}_{side}')
+
+            min, max = fslstats(f'{tract}_{side}_tract.nii.gz').R.run()
+            fslmaths(f'{tract}_{side}_tract.nii.gz').div(max).mul(100).run(f'{tract}_{side}_tract_norm.nii.gz')
+
             print(f'Registering tract {tract}_{side} to MNI')
-            applywarp(f'{tract}_{side}_tract.nii.gz', ref = MNI_2mm, out = f'Tracts_to_MNI/{tract}_{side}_tract_MNI.nii.gz', 
+            applywarp(f'{tract}_{side}_tract_norm.nii.gz', ref = MNI_2mm, out = f'Tracts_to_MNI/{tract}_{side}_tract_MNI.nii.gz', 
                       warp = 'T1_weighted/T1toMNI_warp.nii.gz', premat = 'Corrected_diffusion_data/B0toT1.mat', interp = 'nn', verbose = True)
             
-            print(f'Binarizing tract {tract}_{side}')
-            fslmaths(f'Tracts_to_MNI/{tract}_{side}_tract_MNI.nii.gz').bin().run(f'Tracts_to_MNI/{tract}_{side}_tract_MNI_bin.nii.gz')
+            # print(f'Binarizing tract {tract}_{side}')
+            # fslmaths(f'Tracts_to_MNI/{tract}_{side}_tract_MNI.nii.gz').bin().run(f'Tracts_to_MNI/{tract}_{side}_tract_MNI_bin.nii.gz')
 
 # Now copy the control_1 tracts into the Masks_MNI folder 
 os.chdir(os.path.join(data_path, 'Control_1/Converted_Nii_Files/Tracts_to_MNI/'))
 print('Copying control 1 tracts to MASK MNI folder')
 for tract in tracts:
     for side in sides:
-        shutil.copy2(f'{tract}_{side}_tract_MNI_bin.nii.gz', f'{masks_MNI_folder}/MASK_CB_{tract}_{side}.nii.gz')
+        shutil.copy2(f'{tract}_{side}_tract_MNI.nii.gz', f'{masks_MNI_folder}/MASK_CB_{tract}_{side}.nii.gz')
 
 # Now sum all the tract together to obtain the masks
 os.chdir(data_path)
@@ -56,4 +61,4 @@ for control in range(2, 6):
     for tract in tracts:
         for side in sides:
             mask = os.path.join(masks_MNI_folder, f'MASK_CB_{tract}_{side}.nii.gz')
-            fslmaths(mask).add(f'{tract}_{side}_tract_MNI_bin.nii.gz').run(mask)
+            fslmaths(mask).add(f'{tract}_{side}_tract_MNI.nii.gz').run(mask)
