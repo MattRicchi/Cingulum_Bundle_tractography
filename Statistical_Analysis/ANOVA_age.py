@@ -31,7 +31,7 @@ else:
 results_df = pd.DataFrame({"F-statistic": [statistic], "p-value": [p_value]})
 
 # Save the results to an Excel file
-results_df.to_excel("/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/AGE_anova_results.xlsx", index=False)
+results_df.to_excel("C:/Users/Probook 455 G6/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/AGE_anova_results.xlsx", index=False)
 print("Results saved to AGE_anova_results.xlsx")
 
 ################################################
@@ -57,7 +57,7 @@ print("p-value:", p_value_mmse)
 results_mmse_df = pd.DataFrame({"F-statistic": [statistic_mmse], "p-value": [p_value_mmse]})
 
 # Save the ANOVA results to an Excel file for MMSE
-mmse_anova_results_file = "/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MMSE_anova_results.xlsx"
+mmse_anova_results_file = "C:/Users/Probook 455 G6/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MMSE_anova_results.xlsx"
 results_mmse_df.to_excel(mmse_anova_results_file, sheet_name='ANOVA', index=False)
 print("ANOVA Results saved to MMSE_anova_results.xlsx")
 
@@ -72,7 +72,7 @@ if p_value_mmse < alpha:
     # Perform Tukey test
     tukey_results = pairwise_tukeyhsd(all_data, group_labels)
     Tukey_results_df = pd.DataFrame(data=tukey_results._results_table.data[1:], columns=tukey_results._results_table.data[0])
-
+    print(Tukey_results_df)
     # Save the Tukey results to the same Excel file but in a different sheet
     with pd.ExcelWriter(mmse_anova_results_file, engine='openpyxl', mode='a') as writer:
         Tukey_results_df.to_excel(writer, sheet_name='Tukey', index=False, startrow=0, header=True)
@@ -81,3 +81,51 @@ if p_value_mmse < alpha:
     print("Tukey Results saved to MMSE_anova_results.xlsx")
 else:
     print("There is no significant difference in MMSE distributions among the groups.")
+    
+################################################
+##################### MOCA #####################
+
+# MMSE for different groups 
+AD_MOCA = np.array([12, 19, 16, 20, 13, 21, 11])
+AD_label = ['AD'] * len(AD_MOCA)
+CN_MOCA = np.array([26, 27, 25, 26, 23, 27, 27, 22, 25, 24, 22, 27, 23, 24, 28, 28])
+CN_label = ['CN'] * len(CN_MOCA)
+MCI_MOCA = np.array([25, 19, 24, 23, 14, 17, 21, 25, 17, 26, 29, 20, 17, 18])
+MCI_label = ['MCI'] * len(MCI_MOCA)
+
+# Perform One-way ANOVA test 
+statistic_mmse, p_value_mmse = f_oneway(AD_MOCA, CN_MOCA, MCI_MOCA)
+
+# Print the results
+print("One-way ANOVA results:")
+print("F-statistic:", statistic_mmse)
+print("p-value:", p_value_mmse)
+
+# Create a DataFrame to store the ANOVA results
+results_mmse_df = pd.DataFrame({"F-statistic": [statistic_mmse], "p-value": [p_value_mmse]})
+
+# Save the ANOVA results to an Excel file for MMSE
+moca_anova_results_file = "C:/Users/Probook 455 G6/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MOCA_anova_results.xlsx"
+results_mmse_df.to_excel(moca_anova_results_file, sheet_name='ANOVA', index=False)
+print("ANOVA Results saved to MOCA_anova_results.xlsx")
+
+# Check for statistical significance
+alpha = 0.05
+if p_value_mmse < alpha:
+    print("The MOCA distributions are statistically significantly different. Performing Tukey post hoc test.")
+
+    all_data = np.concatenate([AD_MOCA, CN_MOCA, MCI_MOCA])
+    group_labels = np.concatenate([AD_label, CN_label, MCI_label])
+
+    # Perform Tukey test
+    tukey_results = pairwise_tukeyhsd(all_data, group_labels)
+    Tukey_results_df = pd.DataFrame(data=tukey_results._results_table.data[1:], columns=tukey_results._results_table.data[0])
+    print(Tukey_results_df)
+    # Save the Tukey results to the same Excel file but in a different sheet
+    with pd.ExcelWriter(moca_anova_results_file, engine='openpyxl', mode='a') as writer:
+        Tukey_results_df.to_excel(writer, sheet_name='Tukey', index=False, startrow=0, header=True)
+        writer._save()
+
+    print("Tukey Results saved to MOCA_anova_results.xlsx")
+else:
+    print("There is no significant difference in MOCA distributions among the groups.")
