@@ -18,7 +18,7 @@ sns.set_style("whitegrid")
 
 # Creating a boxplot of mean as a function of group distinguishing between tracts
 plt.figure(figsize=(12, 8))
-sns.boxplot(x="group", y="mean", hue="tract", data=data, notch=True)
+sns.boxplot(x="group", y="mean", hue="tract", data=data)
 plt.xlabel('')
 plt.ylabel('FA')
 plt.legend(title='Subdivision', bbox_to_anchor=(1.05, 1), loc='upper left')
@@ -38,7 +38,7 @@ sns.set_style("whitegrid")
 
 # Creating a boxplot of mean as a function of group distinguishing between tracts
 plt.figure(figsize=(12, 8))
-sns.boxplot(x="group", y="mean", hue="tract", data=data, notch=True)
+sns.boxplot(x="group", y="mean", hue="tract", data=data)
 plt.xlabel('')
 plt.ylabel(r'MD $(10^{-3} \, \text{mm}^2/\text{s})$')
 plt.legend(title='Subdivision', bbox_to_anchor=(1.05, 1), loc='upper left')
@@ -58,7 +58,7 @@ sns.set_style("whitegrid")
 
 # Creating a boxplot of mean as a function of group distinguishing between tracts
 plt.figure(figsize=(12, 8))
-sns.boxplot(x="group", y="mean", hue="tract", data=data, notch=True)
+sns.boxplot(x="group", y="mean", hue="tract", data=data)
 plt.xlabel('')
 plt.ylabel(r'RD $(10^{-3} \, \text{mm}^2/\text{s})$')
 plt.legend(title='Subdivision', bbox_to_anchor=(1.05, 1), loc='upper left')
