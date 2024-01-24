@@ -31,7 +31,7 @@ else:
 results_df = pd.DataFrame({"F-statistic": [statistic], "p-value": [p_value]})
 
 # Save the results to an Excel file
-results_df.to_excel("C:/Users/Probook 455 G6/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/AGE_anova_results.xlsx", index=False)
+results_df.to_excel("/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/AGE_anova_results.xlsx", index=False)
 print("Results saved to AGE_anova_results.xlsx")
 
 ################################################
@@ -57,7 +57,7 @@ print("p-value:", p_value_mmse)
 results_mmse_df = pd.DataFrame({"F-statistic": [statistic_mmse], "p-value": [p_value_mmse]})
 
 # Save the ANOVA results to an Excel file for MMSE
-mmse_anova_results_file = "C:/Users/Probook 455 G6/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MMSE_anova_results.xlsx"
+mmse_anova_results_file = "/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MMSE_anova_results.xlsx"
 results_mmse_df.to_excel(mmse_anova_results_file, sheet_name='ANOVA', index=False)
 print("ANOVA Results saved to MMSE_anova_results.xlsx")
 
@@ -105,7 +105,7 @@ print("p-value:", p_value_mmse)
 results_mmse_df = pd.DataFrame({"F-statistic": [statistic_mmse], "p-value": [p_value_mmse]})
 
 # Save the ANOVA results to an Excel file for MMSE
-moca_anova_results_file = "C:/Users/Probook 455 G6/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MOCA_anova_results.xlsx"
+moca_anova_results_file = "/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MOCA_anova_results.xlsx"
 results_mmse_df.to_excel(moca_anova_results_file, sheet_name='ANOVA', index=False)
 print("ANOVA Results saved to MOCA_anova_results.xlsx")
 
