@@ -5,8 +5,8 @@ from fsl.wrappers import flirt, fnirt, applywarp, invwarp
 
 def register_ROIs_to_b0(eddy_B0_volume, T1_weighted, ROIs):
       # Define the useful paths and files
-      ROIs_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/ROIs/'
-      MNI_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/Brain_references/'
+      ROIs_path = '/path/to/Cingulum_bundle_study/ROIs/'
+      MNI_path = '/path/to/Cingulum_bundle_study/Brain_references/'
     
       MNI_2mm = os.path.join(MNI_path, 'MNI152_T1_2mm_brain.nii.gz')
       config_file = os.path.join(MNI_path, 'T1_2_MNI152_2mm.cnf')
@@ -31,7 +31,7 @@ def register_ROIs_to_b0(eddy_B0_volume, T1_weighted, ROIs):
       for roi in ROIs:
             print(f'Registering {roi}')
             ROI = os.path.join(ROIs_path, f'{roi}.nii.gz')
-            applywarp(ROI, ref = eddy_B0_volume, out = f'ROIs_to_DWI/{roi}_to_DWI.nii.gz', warp = 'T1_weighted/MNItoT1_warp.nii.gz', 
+            applywarp(ROI, ref = 'Corrected_diffusion_data/B0_brain.nii.gz', out = f'ROIs_to_DWI/{roi}_to_DWI.nii.gz', warp = 'T1_weighted/MNItoT1_warp.nii.gz', 
                       postmat = 'T1_weighted/T1_2_b0.mat', interp = 'nn', verbose = True)
       
       print('All done! ROIs registered to B0 space.')
