@@ -4,10 +4,12 @@ import os
 from Cingulum_Bundle_tracts.edit_tracts import threshold_tracts
 from ROIs_and_Masks.masks_to_b0_space import register_masks_to_b0
 
-for patient in range (1, 6):
+patient_number = 18 # plase, update accordingly
+
+for patient in range (1, patient_number):
     print(f'Working in Patient {patient}')
-    data_path = f'/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/control/Control_{patient}/Converted_Nii_Files/'
-    MNI_masks_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/Masks_MNI/'
+    data_path = '/path/to/subject/folder/'
+    MNI_masks_path = 'path/to/masks/in/MNI/space/to/be/registered/to/subject/diffusion/space'
     os.chdir(data_path)
     os.makedirs('MASKSs_to_DWI', exist_ok = True)
     os.makedirs('Cropped_tracts', exist_ok = True)
