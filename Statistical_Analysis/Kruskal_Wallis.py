@@ -1,11 +1,14 @@
 import pandas as pd
 from scipy.stats import kruskal
 from scikit_posthocs import posthoc_dunn
+from os.path import join
+
+database_path = '/path/to/DATABASE/'
 
 # Load the CSV data into DataFrames
-fa_data = pd.read_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/fa_data.csv')
-md_data = pd.read_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/md_data.csv')
-rd_data = pd.read_csv('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/rd_data.csv')
+fa_data = pd.read_csv(join(database_path,'fa_data.csv'))
+md_data = pd.read_csv(join(database_path,'md_data.csv'))
+rd_data = pd.read_csv(join(database_path,'rd_data.csv'))
 
 # Function to perform Kruskal-Wallis test and Dunn's post-hoc test
 def kruskal_dunn(data, measure):
