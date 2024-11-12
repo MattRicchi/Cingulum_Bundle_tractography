@@ -2,10 +2,12 @@ import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
+from os.path import join
 from scipy.stats import pearsonr
 from statsmodels.stats.multitest import multipletests
 
-merged_data = pd.read_excel('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/merged_data_mean.xlsx')
+database_path = '/path/to/DATABASE/'
+merged_data = pd.read_excel(join(database_path,'merged_data_mean.xlsx'))
 
 fa_data = merged_data[merged_data['measure'] == 'FA'].dropna(subset = ['moca'])
 md_data = merged_data[merged_data['measure'] == 'MD'].dropna(subset = ['moca'])
@@ -47,4 +49,4 @@ for tract in ['Subgenual', 'Retrosplenial', 'Parahippocampal']:
 results_df['Adjusted P-Value'] = multipletests(p_values, method='fdr_bh')[1]
 
 # Save the results to an Excel file
-results_df.to_excel('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/correlation_results_bh.xlsx', index=False)
+results_df.to_excel(join(database_path,'correlation_results_bh.xlsx'), index=False)
