@@ -16,7 +16,7 @@ import time
 
 start = time.time()
 
-data_path = '/mnt/c/Users/ricch/OneDrive/Desktop/ADNI/Converted_Nii_Files/'
+data_path = '/path/to/diffusion/data/to/correct/for/distortions/'
 
 os.chdir(data_path)
 os.makedirs('Corrected_diffusion_data', exist_ok = True)
