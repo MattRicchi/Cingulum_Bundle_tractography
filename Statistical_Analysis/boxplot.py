@@ -1,10 +1,12 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+from os.path import join
 
 # Set the color palette to a colorblind-friendly palette
 sns.set_palette("colorblind", n_colors=3)
-merged_data = pd.read_excel('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/merged_data_mean.xlsx')
+merged_data = pd.read_excel('/path/to/DATABASE/DTI_merged_data_mean.xlsx')
+save_path = '/path/to/DATABASE/boxplots/'
 
 # Increase text dimensions
 plt.rcParams.update({'font.size': 14, 'legend.fontsize': 12, 'axes.labelsize': 16, 'axes.titlesize': 18, 'xtick.labelsize': 14, 'ytick.labelsize': 14})
@@ -26,7 +28,7 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 
 # Save the plot to a file 
-plt.savefig('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/Statistical_analysis/Boxplots/boxplot_FA.png')
+plt.savefig(join(save_path,'boxplot_FA.png'))
 
 ########### MD ###########
 
@@ -46,7 +48,7 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 
 # Save the plot to a file 
-plt.savefig('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/Statistical_analysis/Boxplots/boxplot_MD.png')
+plt.savefig(join(save_path,'boxplot_MD.png'))
 
 ########### RD ###########
 
@@ -66,6 +68,6 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 
 # Save the plot to a file 
-plt.savefig('/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/Statistical_analysis/Boxplots/boxplot_RD.png')
+plt.savefig(join(save_path,'boxplot_RD.png'))
 
 plt.show()
