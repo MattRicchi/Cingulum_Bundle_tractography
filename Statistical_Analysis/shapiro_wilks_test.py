@@ -2,10 +2,13 @@ import os
 import pandas as pd
 import numpy as np
 from scipy import stats
+from os.path import join
+
+database_path = '/path/to/DATABASE/'
 
 # Function to extract data for a specific combination of measure, tract, and side
 def extract_data(data, measure, tract, side):
-    subset = data[(data['tract'] == tract) & (data['side'] == side)]['mean']
+    subset = data[(data['measure'] == measure) & (data['tract'] == tract) & (data['side'] == side)]['mean']
     
     # Exclude 0.0 values
     subset = subset[subset != 0.0]
@@ -20,7 +23,7 @@ sides = ['l', 'r']
 ######################## AD ########################
 
 # Load the global CSV file into a DataFrame
-global_csv_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/AD/global_tract_metrics.csv'
+global_csv_path = join(database_path, 'AD/global_tract_metrics.csv')
 df = pd.read_csv(global_csv_path)
 
 # Iterate over metrics, tracts, and sides
@@ -31,8 +34,8 @@ for metric in metrics:
     for tract in tracts:
         for side in sides:
             # Extract data for AD patients
-            data = extract_data(df[df['measure'] == metric.upper()], metric.upper(), tract.capitalize(), side.upper())
-            
+            data = extract_data(df, metric.upper(), tract.capitalize(), side.upper())
+            print(data)
             # Perform the Shapiro-Wilks test
             res = stats.shapiro(data)
 
@@ -42,7 +45,7 @@ for metric in metrics:
 ######################## CN ########################
 
 # Load the global CSV file into a DataFrame
-global_csv_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/CN/global_tract_metrics.csv'
+global_csv_path = join(database_path, 'CN/global_tract_metrics.csv')
 df = pd.read_csv(global_csv_path)
 
 # Iterate over metrics, tracts, and sides
@@ -64,7 +67,7 @@ for metric in metrics:
 ######################## MCI ########################
 
 # Load the global CSV file into a DataFrame
-global_csv_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MCI/global_tract_metrics.csv'
+global_csv_path = join(database_path, 'MCI/global_tract_metrics.csv')
 df = pd.read_csv(global_csv_path)
 
 # Iterate over metrics, tracts, and sides
