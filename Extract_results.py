@@ -9,7 +9,7 @@ sides = ['L', 'R']
 measures = ['FA', 'MD', 'RD']
 
 # Create a global CSV file to store data for all patients
-output_csv_path = '/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MCI/global_tract_metrics.csv'
+output_csv_path = 'path/for/file/with/output/data/global_tract_metrics.csv'
 
 with open(output_csv_path, 'w') as global_csvfile:
     global_writer = csv.DictWriter(global_csvfile, fieldnames=['patient', 'tract', 'side', 'measure', 'mean', 'std'])
@@ -22,7 +22,7 @@ with open(output_csv_path, 'w') as global_csvfile:
         #     continue
 
         print(f'Working in patient {patient}...')
-        data_path = f'/mnt/c/Users/ricch/OneDrive - University of Pisa/Cingulum_bundle_study/DATABASE/MCI/MCI_{patient}/Converted_Nii_Files/'
+        data_path = f'/path/to/DATABASE/MCI/MCI_{patient}/Converted_Nii_Files/'
         os.chdir(data_path)
         os.makedirs('DTI_metrics_tracts', exist_ok=True)
 
