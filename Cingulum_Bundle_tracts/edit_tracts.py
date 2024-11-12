@@ -22,7 +22,7 @@ def threshold_tracts(tracts, sides):
             if process.returncode == 0:
                 print("tckedit command completed successfully, starting tckmap...")
     
-                # poi tckmap per avere i tratti in .nii.gz
+                # run tckmap to have probability maps in .nii.gz format
                 tckmap_command = f'tckmap -template DTI_results/DTIFit_FA.nii.gz Cropped_tracts/{tract}_{side}_tract_cropped.tck -force Cropped_tracts/{tract}_{side}_tract_cropped.nii.gz'
 
                 process_fod = subprocess.Popen(tckmap_command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
